@@ -11,10 +11,10 @@ using namespace std;
 
 int main( int argc, char* argv[] ){
 	string chargeCPU;
-	float chargeCPUNonUtilise;
-	long int memoireLibre;
-	long int memoireTotal;
-	float pourcentageMemoireLibre;
+    float chargeCPUNonUtilise=0;
+    long int memoireLibre=0;
+    long int memoireTotal=0;
+    float pourcentageMemoireLibre=0;
 	string chargeMemoire;
 	string res;
 	string line;
@@ -26,7 +26,7 @@ int main( int argc, char* argv[] ){
 	}
 	 
 	while(fgets(buff, sizeof(buff), in)!=NULL){
-		memoireLibre=atoi(buff);
+        memoireLibre+=atoi(buff);
 	}
 	pclose(in);
 	cout<<"Mémoire Libre: "<<memoireLibre<<endl;
@@ -34,15 +34,12 @@ int main( int argc, char* argv[] ){
 	if(!(in = popen("top -n1 | grep 'Mem'| awk '{print $4;}'", "r"))){
 	        return 1;
 	}
-	 
-	while(fgets(buff, sizeof(buff), in)!=NULL){
-		memoireTotal=atoi(buff);
-	}
-	pclose(in);
-	cout<<"Mémoire totale: "<<memoireTotal<<endl;
 
-	pourcentageMemoireLibre= memoireTotal-memoireLibre/*100-(((memoireTotal-memoireLibre)/memoireTotal)*100);*/;
-	cout<<"Pourcentage de memoire libre: "<< pourcentageMemoireLibre << " % "<<endl;
+    while(fgets(buff, sizeof(buff), in)!=NULL){
+        memoireTotal+=atoi(buff);
+    }
+	pclose(in);
+    cout<<"Mémoire totale: "<<memoireTotal<<endl;
 
 	if(!(in = popen("top -n1 | grep 'Cpu(s)'| awk '{print $8;}'", "r"))){
 	        return 1;
@@ -51,7 +48,7 @@ int main( int argc, char* argv[] ){
 	while(fgets(buff, sizeof(buff), in)!=NULL){
 		char *get= strchr ( buff, ',' );
 		*get='.';
-		chargeCPUNonUtilise=atof(buff);	
+        chargeCPUNonUtilise+=atof(buff);
 	}
 	pclose(in);
 

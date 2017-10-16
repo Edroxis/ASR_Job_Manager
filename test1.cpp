@@ -12,16 +12,16 @@ using namespace std;
 int main( int argc, char* argv[] ){
 	Command cmd1 = Command("./infinite_job.sh proc1");
 	Command cmd2 = Command("./infinite_job.sh proc2");
-	cmd1.run_cmd();
-	cmd2.run_cmd();
-	//cmd2.pause();
+	cmd1.launch();
+	cmd2.launch();
+	cmd2.pause();
 	while(1){
-		sleep(5);
+		sleep(2);
 		cmd1.pause();
-		//cmd2.resume();
-		sleep(5);
+		cmd2.resume();
+		sleep(2);
 		cmd1.resume();
-		//cmd2.pause();
+		cmd2.pause();
 	}
 	return 0;
 }

@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#ifndef JOB
+#define JOB 0
 class Job{
         public:
         int pid;
@@ -31,3 +33,4 @@ class Job{
 		return 0;
         }
 };
+#endif

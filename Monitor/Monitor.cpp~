@@ -2,6 +2,16 @@
 #include "CPU_charge.h"
 using namespace std;
 
+
+/**
+*\brief create a new monitor with the max  and the min of the system charge
+*/
+Monitor::Monitor(float min, float max){
+	levelMin=min;
+	levelMax=max;
+}
+
+
 /**
 *\brief get the percent of CPU charge which is free
 *\return the percent of free CPU charge

@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if ! test -d /tmp/lmaj
+then
+	mkdir /tmp/lmaj
+fi
+
+if ! test -f /tmp/lmaj/gestionnaire.pid
+then
+	echo 'PID file du gestionnaire non détecté, le gestionnaire est-il lancé?'
+else
+	typeset -i pid=$(cat /tmp/lmaj/gestionnaire.pid)
+	barFile='transmit.bar'
+
+	touch /tmp/lmaj/$barFile
+	echo $1 >> /tmp/lmaj/$barFile
+
+	kill -SIGUSR1 $pid
+fi

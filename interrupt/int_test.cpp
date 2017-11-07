@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <signal.h>
 #include <fstream>
+#include <cstdlib>
 
 using namespace std;
 
@@ -37,6 +38,7 @@ void sigHandler(int n){
 int main( int argc, char* argv[] ){
 	signal(SIGUSR1, sigHandler);
 	
+	system("mkdir /tmp/lmaj");
 	FILE* f = fopen("/tmp/lmaj/gestionnaire.pid", "w");
 	char pid[5];
 

@@ -1,10 +1,13 @@
 
-#include "CPU_charge.h"
+#include "Monitor.h"
 using namespace std;
+
 
 
 /**
 *\brief create a new monitor with the max  and the min of the system charge
+*\param min the minal charge of the system
+*\param max the maximal charge of the system
 */
 Monitor::Monitor(float min, float max){
 	levelMin=min;
@@ -31,7 +34,6 @@ float Monitor::getCPUCharge(void){
 	//Read the first line
         getline(read,line);
         string delimiter = " ";
-
         size_t pos = 0;
         string token;
 	//Split all the value of the line
@@ -43,11 +45,12 @@ float Monitor::getCPUCharge(void){
         }
 	//Compute the free cpu charge and the busy cpu charge
         freeCpu=atoi(data[5].c_str())+atoi(data[6].c_str());
-        busyCPU= atoi(data[2].c_str())+ atoi(data[3].c_str())+atoi(data[4].c_str())+atoi(data[7].c_str())+atoi(data[9].c_str())+atoi(data[9].c_str());
+        busyCPU= atoi(data[2].c_str())+ atoi(data[3].c_str())+atoi(data[4].c_str())+atoi(data[7].c_str())+atoi(data[8].c_str())+atoi(data[9].c_str());
         read.close();
      }
      //return the pourcent of free cpu charge
     float pourcentCPU=((float)freeCpu/(freeCpu+busyCPU))*100;
+	cout<<"Cpu: "<<pourcentCPU<<endl;
     return pourcentCPU;
 }
 
@@ -103,5 +106,37 @@ float Monitor::getMemCharge(void){
                read.close();
    }
    return pourcentMem;
+}
+
+string Monitor::ActionSystem(){
+    clock_t delay = clock();
+    float cpuCharge= 0;
+    float memCharge=0;
+    while(1){
+
+        cpuCharge= 100-getCPUCharge();
+        memCharge=100-getMemCharge();
+
+        if(cpuCharge> levelMax || memCharge>levelMax){
+            return "-";
+        }
+
+        if (cpuCharge<levelMin&&memCharge<levelMin){
+            clock_t delay = clock();
+            clock_t endDelay = clock();
+            while((clock()-delay)<5 && cpuCharge<levelMin && memCharge<levelMin){
+                endDelay=clock();
+                cpuCharge= getCPUCharge();
+                memCharge=getMemCharge();
+            }
+            if(endDelay-delay >=5){
+                return "+";
+            }
+        }
+
+    }
+
+
+
 }
 

@@ -34,7 +34,6 @@ float Monitor::getCPUCharge(void){
 	//Read the first line
         getline(read,line);
         string delimiter = " ";
-
         size_t pos = 0;
         string token;
 	//Split all the value of the line
@@ -46,7 +45,7 @@ float Monitor::getCPUCharge(void){
         }
 	//Compute the free cpu charge and the busy cpu charge
         freeCpu=atoi(data[5].c_str())+atoi(data[6].c_str());
-        busyCPU= atoi(data[2].c_str())+ atoi(data[3].c_str())+atoi(data[4].c_str())+atoi(data[7].c_str())+atoi(data[9].c_str())+atoi(data[9].c_str());
+        busyCPU= atoi(data[2].c_str())+ atoi(data[3].c_str())+atoi(data[4].c_str())+atoi(data[7].c_str())+atoi(data[8].c_str())+atoi(data[9].c_str());
         read.close();
      }
      //return the pourcent of free cpu charge
@@ -116,10 +115,7 @@ string Monitor::ActionSystem(){
 
         cpuCharge= 100-getCPUCharge();
         memCharge=100-getMemCharge();
-        /*cout<<"Turn chargeCPU "<<cpuCharge<<endl;
-        cout<<"Turn chargeMem "<<memCharge<<endl;
-        cout<<"Level max: "<<levelMax<<endl;
-        cout<<"Level min: "<<levelMin<<endl;*/
+
         if(cpuCharge> levelMax || memCharge>levelMax){
             return "-";
         }

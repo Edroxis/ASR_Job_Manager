@@ -116,15 +116,19 @@ string Monitor::ActionSystem(){
 		cpuCharge= 100-getCPUCharge();
         memCharge=100-getMemCharge();
 
+        //Decrease CPU charg
         if(cpuCharge> levelMax){
             return "-cpu";
         }
+        //Decrease Mem charg
  		else if(memCharge>levelMax){
 			return "-mem";
 		}
+        //Launch more processus
         else if (cpuCharge<levelMin&&memCharge<levelMin){
             clock_t delay = clock();
             clock_t endDelay = clock();
+            //Wait for 5s to check if the CPU and Mem charg are low
             while((clock()-delay)<5 && cpuCharge<levelMin && memCharge<levelMin){
                 endDelay=clock();
                 cpuCharge= getCPUCharge();

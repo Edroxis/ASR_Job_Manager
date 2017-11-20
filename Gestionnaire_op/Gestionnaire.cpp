@@ -104,6 +104,8 @@ int Gestionnaire::launch()
     }
     return 0;
 }
+
+
 void Gestionnaire::launchProcess()
 {
     for (unsigned i=0; i<toExecute.size(); ++i)

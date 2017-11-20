@@ -116,11 +116,13 @@ string Monitor::ActionSystem(){
         cpuCharge= 100-getCPUCharge();
         memCharge=100-getMemCharge();
 
-        if(cpuCharge> levelMax || memCharge>levelMax){
-            return "-";
+        if(cpuCharge> levelMax){
+            return "-cpu";
         }
-
-        if (cpuCharge<levelMin&&memCharge<levelMin){
+ 	else if(memCharge>levelMax){
+		return "-mem";
+	}
+        else if (cpuCharge<levelMin&&memCharge<levelMin){
             clock_t delay = clock();
             clock_t endDelay = clock();
             while((clock()-delay)<5 && cpuCharge<levelMin && memCharge<levelMin){

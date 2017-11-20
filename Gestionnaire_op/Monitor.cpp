@@ -50,7 +50,6 @@ float Monitor::getCPUCharge(void){
      }
      //return the pourcent of free cpu charge
     float pourcentCPU=((float)freeCpu/(freeCpu+busyCPU))*100;
-	cout<<"Cpu: "<<pourcentCPU<<endl;
     return pourcentCPU;
 }
 
@@ -114,14 +113,16 @@ string Monitor::ActionSystem(){
     float memCharge=0;
     while(1){
 
-        cpuCharge= 100-getCPUCharge();
+		cpuCharge= 100-getCPUCharge();
         memCharge=100-getMemCharge();
 
-        if(cpuCharge> levelMax || memCharge>levelMax){
-            return "-";
+        if(cpuCharge> levelMax){
+            return "-cpu";
         }
-
-        if (cpuCharge<levelMin&&memCharge<levelMin){
+ 		else if(memCharge>levelMax){
+			return "-mem";
+		}
+        else if (cpuCharge<levelMin&&memCharge<levelMin){
             clock_t delay = clock();
             clock_t endDelay = clock();
             while((clock()-delay)<5 && cpuCharge<levelMin && memCharge<levelMin){

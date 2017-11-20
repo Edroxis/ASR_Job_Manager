@@ -86,7 +86,7 @@ int Gestionnaire::launch()
             }
             //Enleve des processus
             //Ajoute des processus dans toExecute et en enleve de running
-            else if(res=="-")
+            else if(res=="-cpu")
             {
                 if(running.empty()==false)
                 {
@@ -104,6 +104,8 @@ int Gestionnaire::launch()
     }
     return 0;
 }
+
+
 void Gestionnaire::launchProcess()
 {
     for (unsigned i=0; i<toExecute.size(); ++i)

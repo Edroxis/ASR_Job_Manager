@@ -1,37 +1,42 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <iostream>
-#include <unistd.h>
-#include <string.h>
+// source: https://cygwin.com/ml/cygwin/2000-08/msg00784.html
+
 #include <sys/types.h>
 #include <sys/socket.h>
+#include <sys/un.h>
+#include <unistd.h>
+#include <stdio.h>
 
-struct SockAddrUn{
-	sa_family_t sun_family;
-	char sun_path[108];
-};
+int main()
+{
+    int         server_sockfd;
+    int         client_sockfd;
+    int         server_len;
+    int         client_len;
+    sockaddr_un server_address;
+    sockaddr_un client_address;
 
-using namespace std;
+    unlink("server_socket");
+    server_sockfd = socket(AF_UNIX, SOCK_STREAM, 0);
 
-int main(int argc, char *argv[]){
-	const struct SockAddrUn* addr = new SockAddrUn;
-	int fd = socket(AF_UNIX, SOCK_STREAM, 0);
-	char path[108];
+    server_address.sun_family = AF_UNIX;
+    strcpy(server_address.sun_path, "server_socket");
+    server_len = sizeof(server_address);
+    bind(server_sockfd, (sockaddr*)&server_address, server_len);
 
-	if(fd == 0) cout << "UNIX Socket successfully created";
-	else{
-		cout << "UNIX Socket creation failure";
-		return 1;
-	}
+    listen(server_sockfd, 5);
+    while(true)
+    {
+        char ch;
 
-	strcpy(addr->sun_path, "/tmp/lmaj/serv.socket");
-	addr->sun_family = AF_UNIX;
+        // printf("server waiting\n");
 
-	if(bind(fd, addr) == 0) cout << "Bind success";
-	else{
-		cout << "Bind Failure";
-		return 1;
-	}
+        client_sockfd = accept(server_sockfd,
+                        (sockaddr*)&client_address,
+                        &client_len);
 
-	return 0;
+        read(client_sockfd, &ch, 1);
+        ++ch;
+        write(client_sockfd, &ch, 1);
+        close(client_sockfd);
+    }
 }

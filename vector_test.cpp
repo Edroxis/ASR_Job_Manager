@@ -11,37 +11,29 @@
 using namespace std;
 
 int main( int argc, char* argv[] ){
+	// Define the jobs
 	Command cmd1 = Command("./infinite_job.sh proc1");
 	Command cmd2 = Command("./infinite_job.sh proc2");
 	Job1 job1 = Job1();
+
+	// Define the vector
 	vector<Job*> job_list;
 
+	// Put the Jobs on the vector
 	job_list.push_back(&cmd1);
 	job_list.push_back(&cmd2);
 	job_list.push_back(&job1);
 
+	// Launch Jobs
 	job_list[0]->launch();
 	job_list[1]->launch();
 	job_list[2]->launch();
-	
-	//Command mycmd1 = *((Command*)job_list[0]);
-	//Command mycmd2 = *((Command*)job_list[1]);
-	
-	//mycmd1.launch();
-	//mycmd2.launch();
 
-	/*mycmd2.pause();
-	while(1){
-		sleep(2);
-		mycmd1.pause();
-		mycmd2.resume();
-		sleep(2);
-		mycmd1.resume();
-		mycmd2.pause();
-	}*/
-
+	// Stop all but the 1st
 	job_list[1]->pause();
 	job_list[2]->pause();
+
+	// Each 2s, stop running job and resume the next one
 	while(1){
 		sleep(2);
 		job_list[0]->pause();
@@ -53,5 +45,6 @@ int main( int argc, char* argv[] ){
 		job_list[2]->pause();
 		job_list[0]->resume();
 	}
+
 	return 0;
 }

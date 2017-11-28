@@ -9,47 +9,61 @@ class Command : public Job{
 	public:
 	char** argv;
 	Command(const char * str){
-		//cmd = std::string(str);
-		//std::cout << "this is your string: " << cmd << std::endl;
 		build_argv(str);
+
+		// Print the command on standard output
 		for(int j=0; argv[j] != 0; j++){
-			std::cout<< argv[j] << std::endl;
+			std::cout<< argv[j] << " ";
 		}
+		std::cout << std::endl;
 	}
 
+	// Builds the argv table
 	void build_argv(const char * str){
 		int nb = calc_nb_elements(str);
-		//std::cout << "nb elements:" << nb << std::endl;
+
+		// Build argv
 		argv = new char*[nb+1];
+
 		int res_index = 0;
+
+		// Reserve memory space for our temporary string
 		std::string * tmp = new std::string();
+
+		// For each character on the command
 		for(;*str != 0; str++){
-			//std::cout << *str;
+			// if not a space, add it to temporary string
 			if(*str != ' ') *tmp+=*str;
+			// if space, save element and change argv index
 			else{
+				// Reserve memory space for our char*
 				char * tmp2 = new char[tmp->size()+1];
+				// Copy the temp string on our table
 				std::copy(tmp->begin(),tmp->end(),tmp2);
+				// Make argv index point to previously allocated char* tmp2
 				argv[res_index] = tmp2;
+				// Change Index
 				res_index++;
-				//std::cout << *tmp << std::endl;
-				tmp = new std::string();	
+
+				tmp->clear();
 			}
 		}
+		// Same operation for last word of the command
 		char * tmp2 = new char[tmp->size()+1];
 		std::copy(tmp->begin(),tmp->end(),tmp2);
 		argv[res_index] = tmp2;
-		//std::cout << tmp << std::endl;
 		res_index++;
-		
+
+		// Terminate our table with a NULL char*
 		argv[res_index] = (char*) 0;
-		//std::cout << std::endl << "res content:" << std::endl;
 	}
 
+	// Counts spaces to know how many elements on command
 	int calc_nb_elements(const char * str){
 		int i=0;
 		for(; *str != 0; str++){
 			if(*str==' ') i++;
-		}		
+		}
 		return i+1;
 	}
 

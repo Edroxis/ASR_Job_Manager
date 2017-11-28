@@ -8,7 +8,7 @@ using namespace std;
 
 int main( int argc, char* argv[] ){
 	cout << "hello world" << std::endl;
-	
+
 	int pid = fork();
 
 	if(pid == 0){

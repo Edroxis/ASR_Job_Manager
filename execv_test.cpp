@@ -8,13 +8,13 @@ using namespace std;
 
 int main( int argc, char* argv[] ){
 	//char * args[] = {"/bin/ls", "-r", "-l", (char *) NULL};	
-	//execv("/bin/ls", args);	
+	//execv("/bin/ls", args);
 
 	int pid = fork();
 
 	if(pid == 0){
 		std::cout << "Child process id: " << getpid() << std::endl;
-		char * args[] = {"./infinite_job.sh", "proc1", (char *) NULL};	
+		char * args[] = {"./infinite_job.sh", "proc1", (char *) NULL};
 		execv("./infinite_job.sh", args);
       	}
 	else{
@@ -23,8 +23,8 @@ int main( int argc, char* argv[] ){
 		kill(pid, SIGKILL);
 	}
 
-	//char * args[] = {"/bin/ls", "-l", (char *) NULL};	
+	//char * args[] = {"/bin/ls", "-l", (char *) NULL};
 	//execv("/bin/ls", args);
-	 
+
 	return 0;
 }

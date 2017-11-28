@@ -5,13 +5,14 @@
 #include <sys/un.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <iostream>
 
 int main()
 {
     int         server_sockfd;
     int         client_sockfd;
     int         server_len;
-    int         client_len;
+    unsigned int         client_len;
     sockaddr_un server_address;
     sockaddr_un client_address;
 
@@ -28,15 +29,16 @@ int main()
     {
         char ch;
 
-        // printf("server waiting\n");
+        std::cout << "server waiting" << std::endl;
 
         client_sockfd = accept(server_sockfd,
                         (sockaddr*)&client_address,
                         &client_len);
 
         read(client_sockfd, &ch, 1);
-        ++ch;
-        write(client_sockfd, &ch, 1);
+        std::cout << ch << std::endl;
+        ch++;
+	write(client_sockfd, &ch, 1);
         close(client_sockfd);
     }
 }

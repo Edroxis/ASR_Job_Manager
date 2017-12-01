@@ -1,0 +1,17 @@
+
+class Monitor {
+
+	private:
+		float levelMin;
+		float levelMax;
+
+	public:
+
+		Monitor(float min=25, float max=95);
+		//Get the CPU charge
+		float getCPUCharge();
+		//Get Mem charge
+		float getMemCharge();
+		//Tell the administrator what to do
+		string ActionSystem();
+};

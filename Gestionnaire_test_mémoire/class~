@@ -1,0 +1,41 @@
+Command:
+	hérite de Job 
+        char** argv;
+
+        Command(const char * str);
+
+        void build_argv(const char * str);
+
+        int calc_nb_elements(const char * str);
+
+        int run();
+
+Gestionnaire 
+
+    private:
+
+        vector<Job*> toExecute;
+        vector<Job*> running;
+
+	public:
+        Gestionnaire();
+        int add(Job* job);
+        int add(Command* command);
+        int launch();
+        void printVector();
+        void launchProcess();
+
+Job
+
+    private:
+        int pid;
+
+    public:
+        Job();
+        int launch();
+        virtual int run() = 0;
+        int pause();
+        int resume();
+        int getPid();
+
+

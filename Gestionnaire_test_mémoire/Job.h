@@ -18,16 +18,18 @@ class Job{
 
     protected:
 	string name;
+	Job();
 
     public:
         Job(const char * processName);
-	Job();
+	Job(Job * job1);
         int launch();
         virtual int run() = 0;
         int pause();
         int resume();
         int getPid();
 	int killProcess();
+	string getName();
 
 	//Ajout destructeur virtuel !!!
 };

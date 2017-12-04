@@ -2,7 +2,7 @@
 Command::Command(const char * str){
 		
 		//cmd = std::string(str);
-		//name=str;
+		name=str;
 		//std::cout << "this is your string: " << cmd << std::endl;
 		build_argv(str);
 		for(int j=0; argv[j] != 0; j++){

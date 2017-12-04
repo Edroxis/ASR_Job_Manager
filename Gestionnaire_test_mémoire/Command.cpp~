@@ -1,5 +1,5 @@
 #include "Command.h"
-Command::Command(const char * str):super(str){
+Command::Command(const char * str):super(const char * str){
 		
 		//cmd = std::string(str);
 		//name=str;

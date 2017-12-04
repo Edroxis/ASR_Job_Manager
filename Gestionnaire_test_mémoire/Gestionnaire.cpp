@@ -102,7 +102,7 @@ int Gestionnaire::launch()
 			
 				Job* jobToPause= getProcessToPause();
 				cout<<"========================================================================="<<endl;
-				cout<<"Attention !: Le processus ayant le Pid "<<jobToPause->getPid()<<"a été tué car il consommait trop de memoire !"<<endl;
+				cout<<"Attention !: Le processus ayant le Pid "<<jobToPause->getName()<<" a été tué car il consommait trop de memoire !"<<endl;
 				cout<<"========================================================================="<<endl;
 				for (int i=0; i<running.size(); i++)
 				{
@@ -114,6 +114,19 @@ int Gestionnaire::launch()
 				killed.push_back(jobToPause);
 				jobToPause->killProcess();
 			}
+			Job* jobToPause= getProcessToPause();
+			cout<<"========================================================================="<<endl;
+			cout<<"Attention !: Le processus "<<jobToPause->getName()<<" a été tué car il consommait trop de memoire !"<<endl;
+			cout<<"========================================================================="<<endl;
+			for (int i=0; i<running.size(); i++)
+			{
+				if (running[i]->getPid()==jobToPause->getPid())
+				{
+					running.erase(running.begin()+i);
+				}
+			}
+			killed.push_back(jobToPause);
+			jobToPause->killProcess();
 		}
     }
     return 0;

@@ -2,7 +2,7 @@
 
 class Job1 : public Job{
 	public:
-	 void Job1(const char* name) : Job(name)
+	Job1(const char* name) : Job(name)
 	{
  
 	}

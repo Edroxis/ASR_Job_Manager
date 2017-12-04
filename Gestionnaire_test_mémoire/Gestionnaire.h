@@ -4,6 +4,7 @@
 #include "Job.h"
 #include"Monitor.h"
 #include "Command.h"
+#include "Strategie.h"
 
 using namespace std;
 
@@ -14,6 +15,8 @@ class Gestionnaire {
         vector<Job*> toExecute;
         vector<Job*> running;
 	vector<Job*> killed;
+	Strategie strategie;
+
 
 	public:
         Gestionnaire();

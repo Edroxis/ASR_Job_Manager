@@ -1,0 +1,14 @@
+#include <vector>
+#include <stdio.h>
+#include <stdlib.h>
+#include "Job.h"
+
+using namespace std;
+
+class Strategie {
+
+    int strategieDefault(vector<Job*> running);
+
+	int strategieMemMax(vecor<Job*> running);
+
+};

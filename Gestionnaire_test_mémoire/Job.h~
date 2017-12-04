@@ -19,11 +19,10 @@ class Job{
     protected:
 	string name;
 	Job();
-	Job(Job * job1);
 
     public:
         Job(const char * processName);
-	
+	Job(Job * job1);
         int launch();
         virtual int run() = 0;
         int pause();

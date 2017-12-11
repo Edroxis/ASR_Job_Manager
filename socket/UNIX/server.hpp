@@ -45,11 +45,12 @@ class Server {
 
 		// Zero Terminated String
 		buffer[nb_chars_read] = 0;
-		std::cout << buffer << std::endl;
+		//std::cout << buffer << std::endl;
 		//std::cout << nb_chars_read << std::endl;
 
 		// Send response and close socket
 		//write(client_sockfd, "Gestionnaire: Command Received!", 31);
+
 		close(client_sockfd);
 	}
 

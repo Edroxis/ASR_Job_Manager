@@ -19,7 +19,7 @@ class Client{
 
 	public:
 	Client(const char* sock_name){
-		std::cout << sock_name << std::endl;
+		//std::cout << sock_name << std::endl;
 
 		sockfd = socket(AF_UNIX, SOCK_STREAM, 0);
 
@@ -42,8 +42,8 @@ class Client{
 		write(sockfd, tmp.c_str(), tmp.length());
 
 		// Read and print main program response
-		read(sockfd, response, RESPONSE_SIZE);
-		std::cout << response << std::endl;
+		//read(sockfd, response, RESPONSE_SIZE);
+		//std::cout << response << std::endl;
 
 		close(sockfd);
 	}

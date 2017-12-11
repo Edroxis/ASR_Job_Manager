@@ -16,9 +16,14 @@ class Client{
 	int         result;
 	std::string command;
 	char        response[RESPONSE_SIZE];
+	const char* sock_name;
 
 	public:
-	Client(const char* sock_name){
+	Client(const char* sn){
+		sock_name = sn;
+	}
+
+	void send(char* str){
 		//std::cout << sock_name << std::endl;
 
 		sockfd = socket(AF_UNIX, SOCK_STREAM, 0);
@@ -33,9 +38,7 @@ class Client{
 		{
 			perror("Error: Client can't connect!");
 		}
-	}
 
-	void send(char* str){
 		std::string tmp = std::string(str);
 
 		// Write command from stdin in the socket

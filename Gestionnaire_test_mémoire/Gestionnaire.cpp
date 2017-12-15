@@ -1,31 +1,55 @@
 #include "Gestionnaire.h"
 
+/**
+*\brief consrtuctor
+*/
 Gestionnaire::Gestionnaire()
 {
 
 }
 
+/**
+*\brief add a job
+*\params job the job to add
+*\return 0
+*/
 int Gestionnaire::add(Job* job)
 {
     toExecute.push_back(job);
     return 0;
 }
 
+/**
+*\brief add a command
+*\params command the command to add
+*\return 0
+*/
 int Gestionnaire::add(Command* command)
 {
     toExecute.push_back(command);
     return 0;
 }
+
+/**
+*\brief print all the vector
+*/
 void Gestionnaire::printVector(){
 
+    //Process to execute
     cout<<"To execute"<<endl;
     for (unsigned i=0; i<toExecute.size(); ++i)
         cout << ' ' << toExecute[i]->getPid()<<endl;
 
+    //Process killed
     cout<<"Running"<<endl;
     for (unsigned i=0; i<running.size(); ++i)
         cout << ' ' << running[i]->getPid()<<endl;
 }
+
+/**
+*\brief launch the manager
+*\return 0
+*/
 int Gestionnaire::launch()
 {
     int     fd[2], nbytes;
@@ -44,7 +68,7 @@ int Gestionnaire::launch()
 	//Child process
     if(childpid == 0)
     {
-                // Close the input of the pipe for the child
+        // Close the input of the pipe for the child
         close(fd[0]);
 		Monitor monitor (50,95);
 
@@ -69,8 +93,8 @@ int Gestionnaire::launch()
             nbytes = read(fd[0], readbuffer, sizeof(readbuffer));
 			string res= readbuffer;
 			cout<<"Lu: "<<res<<endl;
-            //Rajoute des processus
-            //Ajoute des processus dans running et en enleve de toExecute
+
+            //Add process in running and remove it from toExecute
             if(res=="+")
             {
                 /*if(toExecute.empty()==false)
@@ -83,9 +107,11 @@ int Gestionnaire::launch()
                 }*/
 
 				if(toExecute.empty()==false){
+                    //get the process to launch
 					Job* jobToLaunch= strategie.strategieDefault(toExecute);
 					for (int i=0; i<toExecute.size(); i++)
 					{
+                        //if it's the good process launch it
 						if (toExecute[i]->getPid()==jobToLaunch->getPid())
 						{
 							running.push_back(toExecute[i]);
@@ -98,8 +124,8 @@ int Gestionnaire::launch()
 				}
 				
             }
-            //Enleve des processus
-            //Ajoute des processus dans toExecute et en enleve de running
+
+            //Add process in toExecute and remove it from running
             else if(res=="-cpu")
             {
 				
@@ -112,10 +138,11 @@ int Gestionnaire::launch()
                     printVector();
                 }*/
 				if(running.empty()==false){
-
+                    //Get the job to pause
 					Job* jobToPause= strategie.strategieDefault(running);
 					for (int i=0; i<running.size(); i++)
 					{
+                        //If it's the good process launch it
 						if (running[i]->getPid()==jobToPause->getPid())
 						{
 							toExecute.push_back(running[i]);
@@ -127,18 +154,20 @@ int Gestionnaire::launch()
             }
 	        else if (res=="-mem")
 			{
-			
+			    //Get the process to kill
 				Job* jobToPause= strategie.strategieMemMax(running);
 				cout<<"========================================================================="<<endl;
 				cout<<"Attention !: Le processus "<<jobToPause->getName()<<" a été tué car il consommait trop de memoire !"<<endl;
 				cout<<"========================================================================="<<endl;
 				for (int i=0; i<running.size(); i++)
 				{
+                    //Remove it from running
 					if (running[i]->getPid()==jobToPause->getPid())
 					{
 						running.erase(running.begin()+i);
 					}
 				}
+                //Kill the process
 				killed.push_back(jobToPause);
 				jobToPause->killProcess();
 			}
@@ -147,7 +176,9 @@ int Gestionnaire::launch()
     return 0;
 }
 
-
+/**
+*\brief launch all of the process then pause them
+*/
 void Gestionnaire::launchProcess()
 {
     for (unsigned i=0; i<toExecute.size(); ++i)

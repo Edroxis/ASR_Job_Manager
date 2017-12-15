@@ -54,3 +54,7 @@ int Job::killProcess(){
 	kill(pid, SIGKILL);
 	return 0;
 }
+
+Job::~Job(){
+
+}

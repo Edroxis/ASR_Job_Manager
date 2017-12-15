@@ -14,30 +14,35 @@ using namespace std;
 class Job{
 
     private:
+	//pid of the job
         int pid;
 
     protected:
+	//Name of the job
 	string name;
+	
 	Job();
 
     public:
         Job(const char * processName);
 	Job(Job * job1);
+	//launch the job
         int launch();
+	//Code to execute
         virtual int run() = 0;
+	//Pause the process
         int pause();
+	//Resume the process
         int resume();
+	//get the process pid
         int getPid();
+	//kill a job
 	int killProcess();
+	//Get the name of the job
 	string getName();
-	~Job();
 
-	//Ajout destructeur virtuel !!!
+	virtual ~Job();
+
 };
 
 #endif
-
-//Stratégie classe startégie: choose index to kill, ..... avec en paramètre le vect
-//Méthode Stratégie virtuel pour pouvoir la redéfinir si jamais (méthode que choisit le max pour la mémoire)
-
-

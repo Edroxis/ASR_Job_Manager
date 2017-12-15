@@ -68,6 +68,7 @@ int Gestionnaire::launch()
             //Read the charge from the pipe
             nbytes = read(fd[0], readbuffer, sizeof(readbuffer));
 			string res= readbuffer;
+			cout<<"Lu: "<<res<<endl;
             //Rajoute des processus
             //Ajoute des processus dans running et en enleve de toExecute
             if(res=="+")

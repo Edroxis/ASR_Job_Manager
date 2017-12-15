@@ -15,7 +15,7 @@ class Gestionnaire {
         vector<Job*> toExecute;
         vector<Job*> running;
 	vector<Job*> killed;
-	Strategie startegie;
+	Strategie strategie;
 
 
 	public:

@@ -1,12 +1,7 @@
 #include "Strategie.h"
 
 Job* Strategie::strategieDefault(vector<Job*> running){
-	if(running.size()>0){
 		return running[0];	
-	}
-	return null;
-
-
 }
 
 Job* Strategie::strategieMemMax(vector<Job*> running){

@@ -30,6 +30,7 @@ class Job{
         int getPid();
 	int killProcess();
 	string getName();
+	~Job();
 
 	//Ajout destructeur virtuel !!!
 };

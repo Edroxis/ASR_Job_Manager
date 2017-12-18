@@ -12,10 +12,10 @@ class Command : public Job{
 		build_argv(str);
 
 		// Print the command on standard output
-		for(int j=0; argv[j] != 0; j++){
+		/*for(int j=0; argv[j] != 0; j++){
 			std::cout<< argv[j] << " ";
 		}
-		std::cout << std::endl;
+		std::cout << std::endl;*/
 	}
 
 	// Builds the argv table

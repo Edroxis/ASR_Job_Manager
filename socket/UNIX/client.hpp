@@ -25,13 +25,13 @@ class Client{
 
 	void send(char* str){
 		//std::cout << sock_name << std::endl;
-
+		// Build Socket
 		sockfd = socket(AF_UNIX, SOCK_STREAM, 0);
-
 		address.sun_family = AF_UNIX;
 		strcpy(address.sun_path, sock_name);
 		len = sizeof(address);
 
+		// Do connect() to the server
 		result = connect(sockfd, (sockaddr*)&address, len);
 
 		if(result == -1)

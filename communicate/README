@@ -1,6 +1,0 @@
-g++ fstream_test.cpp -o fstream_test.out
-touch file.dat
-./fstream_test.out
-
-# In another shell
-echo 'my_awesome_command --some-option arg' >> file.dat

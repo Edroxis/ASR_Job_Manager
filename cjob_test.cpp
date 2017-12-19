@@ -10,10 +10,15 @@
 using namespace std;
 
 int main( int argc, char* argv[] ){
+	// Création des Job
 	Job1 job1 = Job1();
 	Job1 job2 = Job1();
+
+	// Lancement des Jobs
 	job1.launch();
 	job2.launch();
+
+	// Alterner l'exécution des deux job toutes le 5s
 	job2.pause();
 	while(1){
 		sleep(5);

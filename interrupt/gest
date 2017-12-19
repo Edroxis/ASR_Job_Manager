@@ -1,19 +1,23 @@
 #!/bin/bash
-
+# Create lmaj dir if doesn't exist
 if ! test -d /tmp/lmaj
 then
 	mkdir /tmp/lmaj
 fi
 
+# Test presence of file to get gestionnaire PID
 if ! test -f /tmp/lmaj/gestionnaire.pid
 then
 	echo 'PID file du gestionnaire non détecté, le gestionnaire est-il lancé?'
 else
+	# Get gestionnaire PID
 	typeset -i pid=$(cat /tmp/lmaj/gestionnaire.pid)
 	barFile='transmit.bar'
 
+	# Create file and write in it datas to send to gestionnaire
 	touch /tmp/lmaj/$barFile
 	echo $1 >> /tmp/lmaj/$barFile
 
+	# Send SIGUSR to gestionnaire
 	kill -SIGUSR1 $pid
 fi

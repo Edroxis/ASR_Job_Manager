@@ -6,13 +6,13 @@
 class Job{
         public:
         int pid;
-        
+
 	Job(){}
 
         int launch(){
                 std::cout << "command running" << std::endl;
                 pid = fork();
-                
+
                 if(pid == 0){
 			run();
 			exit(1);

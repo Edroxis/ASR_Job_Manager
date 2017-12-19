@@ -8,7 +8,7 @@
 #include "Job.h"
 
 class Command : public Job{
-
+ 
 	private:
 	//Command arguments
         char** argv;

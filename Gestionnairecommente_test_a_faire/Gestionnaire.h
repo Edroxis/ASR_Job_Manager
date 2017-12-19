@@ -19,10 +19,14 @@ class Gestionnaire {
 	vector<Job*> killed;
 	//strategie used
 	Strategie strategie;
+	//level min
+	int min=0;
+	//level max
+	int max=0;
 
 
 	public:
-        Gestionnaire();
+        Gestionnaire(int levelMin, int levelMax);
 	//Add a job
         int add(Job* job);
 	//Add a command 

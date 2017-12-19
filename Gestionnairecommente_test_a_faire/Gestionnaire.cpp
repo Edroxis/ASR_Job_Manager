@@ -3,8 +3,10 @@
 /**
 *\brief consrtuctor
 */
-Gestionnaire::Gestionnaire()
+Gestionnaire::Gestionnaire(int levelMin, int levelMax)
 {
+	min=levelMin;
+	max=levelMax;
 
 }
 
@@ -70,7 +72,7 @@ int Gestionnaire::launch()
     {
         // Close the input of the pipe for the child
         close(fd[0]);
-		Monitor monitor (50,95);
+		Monitor monitor (min,max);
 
 
 		while(1){
@@ -155,21 +157,24 @@ int Gestionnaire::launch()
 	        else if (res=="-mem")
 			{
 			    //Get the process to kill
-				Job* jobToPause= strategie.strategieMemMax(running);
-				cout<<"========================================================================="<<endl;
-				cout<<"Attention !: Le processus "<<jobToPause->getName()<<" a été tué car il consommait trop de memoire !"<<endl;
-				cout<<"========================================================================="<<endl;
-				for (int i=0; i<running.size(); i++)
-				{
-                    //Remove it from running
-					if (running[i]->getPid()==jobToPause->getPid())
+				if(running.size()!=0){
+
+					Job* jobToPause= strategie.strategieMemMax(running);
+					cout<<"========================================================================="<<endl;
+					cout<<"Attention !: Le processus "<<jobToPause->getName()<<" a été tué car il consommait trop de memoire !"<<endl;
+					cout<<"========================================================================="<<endl;
+					for (int i=0; i<running.size(); i++)
 					{
-						running.erase(running.begin()+i);
+		            //Remove it from running
+						if (running[i]->getPid()==jobToPause->getPid())
+						{
+							running.erase(running.begin()+i);
+						}
 					}
+		        	//Kill the process
+					killed.push_back(jobToPause);
+					jobToPause->killProcess();
 				}
-                //Kill the process
-				killed.push_back(jobToPause);
-				jobToPause->killProcess();
 			}
 		}
     }

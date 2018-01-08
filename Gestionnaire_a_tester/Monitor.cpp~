@@ -113,9 +113,9 @@ string Monitor::ActionSystem(){
     float memCharge=0;
     while(1){
 
-		cpuCharge= 100-getCPUCharge();
+	cpuCharge= 100-getCPUCharge();
         memCharge=100-getMemCharge();
-		cout<<"charge: "<<memCharge<<endl;
+	cout<<"charge: "<<cpuCharge<<endl;
 
         if(cpuCharge> levelMax){
             return "-cpu";

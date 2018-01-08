@@ -115,7 +115,6 @@ string Monitor::ActionSystem(){
 
 		cpuCharge= 100-getCPUCharge();
         memCharge=100-getMemCharge();
-		cout<<"charge: "<<cpuCharge<<endl;
 
         if(cpuCharge> levelMax){
             return "-cpu";

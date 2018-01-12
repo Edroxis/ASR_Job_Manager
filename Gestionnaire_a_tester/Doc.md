@@ -114,7 +114,7 @@ Define all the strategy to adopt in order to determine what job to pause and lau
 \param running the list of the process <br/>
 \return the job to kill/pause/launch
 
-###strategieMemMax(vector<Job*> running)
+### strategieMemMax(vector<Job*> running)
 \brief get the process which used the most memory <br/>
 \param running the list of the process <br/>
 \return the job to kill

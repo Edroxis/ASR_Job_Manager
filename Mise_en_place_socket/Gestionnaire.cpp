@@ -7,9 +7,9 @@ Gestionnaire::Gestionnaire(int levelMin, int levelMax)
 {
 	min=levelMin;
 	max=levelMax;
-	toExecute.clear();
-	running.clear();
-	killed.clear();
+	//toExecute.clear();
+	//running.clear();
+	//killed.clear();
 }
 
 /**
@@ -230,12 +230,7 @@ int Gestionnaire::startServer(){
         while(1){
 			srv.receive();
 			Command cmd = Command(srv.getline());
-			while(isUsed==true){
-					sleep(1);
-			}
-			isUsed=true;
-			toExecute.push_back(&cmd);
-			isUsed=false;
+			add(&cmd);
 		}
 
     }

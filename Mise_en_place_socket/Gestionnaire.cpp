@@ -7,7 +7,9 @@ Gestionnaire::Gestionnaire(int levelMin, int levelMax)
 {
 	min=levelMin;
 	max=levelMax;
-	srv = Server("server_socket");
+	toExecute.clear();
+	running.clear();
+	killed.clear();
 }
 
 /**
@@ -211,7 +213,10 @@ void Gestionnaire::launchProcess()
 }
 
 int Gestionnaire::startServer(){
+
+	Server srv ("/tmp/server_socket");
 	int childpid=0;
+	cout<<"Start serveur"<<endl;
 	//fork error
     if((childpid = fork()) == -1)
     {
@@ -224,7 +229,13 @@ int Gestionnaire::startServer(){
     {
         while(1){
 			srv.receive();
-			cout << srv.getline() <<endl;		
+			Command cmd = Command(srv.getline());
+			while(isUsed==true){
+					sleep(1);
+			}
+			isUsed=true;
+			toExecute.push_back(&cmd);
+			isUsed=false;
 		}
 
     }

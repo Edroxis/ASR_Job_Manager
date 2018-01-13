@@ -9,7 +9,7 @@
 
 int main( int argc, char* argv[] ){
     //Instanciate a new manager
-    Gestionnaire gestionnaire(10,20);
+    Gestionnaire gestionnaire(50,90);
     //Create a new command 
     //Command cmd1 = Command("./infinite_job.sh proc1");
 	//Command cmd2 = Command("./infinite_job.sh proc2");

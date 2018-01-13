@@ -20,11 +20,11 @@ int main( int argc, char* argv[] ){
     //gestionnaire.add(&cmd2);
 	//gestionnaire.add(&jobe);
 
-	JobTest* job1= new JobTest[100]();
+	/*JobTest* job1= new JobTest[100]();
 	for (int i=0; i<100; i++){
 		job1[i]=JobTest ("test"+i);
 		gestionnaire.add(&(job1[i]));
-	} //=JobTest ("test 1");
+	} //=JobTest ("test 1");*/
 	/*JobTest job2 =JobTest ("test 2");
 	JobTest job3 =JobTest ("test 3");
 	JobTest job4 =JobTest ("test 4");

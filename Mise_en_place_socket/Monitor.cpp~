@@ -119,7 +119,7 @@ string Monitor::ActionSystem(){
 	//Get busy CPU and memory charge
 	cpuCharge= 100-getCPUCharge();
     memCharge=100-getMemCharge();
-		
+	cout<<"Mem charge: "<<memCharge<<endl;
 		//The CPU charge is to high
         if(cpuCharge> levelMax){
             return "-cpu";

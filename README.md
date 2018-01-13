@@ -1,5 +1,6 @@
 # ASR_Job_Manager
 
-# How to compilate the code 
-
-* In the file where all the documents are execute the command : "g++ *.cpp -o test -std=c++11"
+# Organisation
+* In Gestionnaire you'll find our main program, managing jobs and their process
+* In POCs you'll find our proofs of concept (for sockets, interruptions...)
+* In divers you'll find a nice junkyard of code 

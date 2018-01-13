@@ -21,11 +21,11 @@ class Gestionnaire {
 	    //strategie used
 	    Strategie strategie;
 	    //level min
-	    int min=0;
+	    int min;
 	    //level max
-	    int max=0;
+	    int max;
 	    //if the "to Execute list is used
-	    bool isUsed=false;
+	    bool isUsed;
 
 
 	public:
@@ -42,6 +42,9 @@ class Gestionnaire {
 	    //Launch all the process
         void launchProcess();
 	    //Job* getProcessToPause();
-	
+		// Get the command to launch from the shell
+		void getCommandToLaunch();
+		//launch the server that allow to get all the command form the shell 
 	    int startServer();
+		~Gestionnaire();
 };

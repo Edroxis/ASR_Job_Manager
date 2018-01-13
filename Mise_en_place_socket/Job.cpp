@@ -34,7 +34,7 @@ Job::Job()
 */
 int Job::launch(){
 
-   cout << "command running" << endl;
+   //cout << "command running" << endl;
    pid = fork();
 
    if(pid == 0){

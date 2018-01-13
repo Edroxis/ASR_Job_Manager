@@ -1,4 +1,7 @@
 #include "Gestionnaire.h"
+#include <iostream>
+#include <fstream>
+ 
 
 /**
 *\brief consrtuctor
@@ -7,9 +10,12 @@ Gestionnaire::Gestionnaire(int levelMin, int levelMax)
 {
 	min=levelMin;
 	max=levelMax;
+	isUsed=false;
 	//toExecute.clear();
 	//running.clear();
 	//killed.clear();
+	ofstream fichier("/tmp/command.txt", ios::out | ios::trunc);
+	fichier.close();
 }
 
 /**
@@ -46,12 +52,12 @@ void Gestionnaire::printVector(){
 	}
 	isUsed=true;
     for (unsigned i=0; i<toExecute.size(); ++i)
-        cout << ' ' << toExecute[i]->getPid()<<endl;
+        cout << ' ' << toExecute[i]->getName()<<endl;
 	isUsed=false;
-    //Process killed
+    //Process running
     cout<<"Running"<<endl;
     for (unsigned i=0; i<running.size(); ++i)
-        cout << ' ' << running[i]->getPid()<<endl;
+        cout << ' ' << running[i]->getName()<<endl;
 }
 
 /**
@@ -108,14 +114,7 @@ int Gestionnaire::launch()
             //Add process in running and remove it from toExecute
             if(res=="+")
             {
-                /*if(toExecute.empty()==false)
-                {
-                    cout<<"Ajoute"<<endl;
-                    running.push_back(toExecute[toExecute.size()-1]);
-                    toExecute[toExecute.size()-1]->resume();
-                    toExecute.pop_back();
-                    printVector();
-                }*/
+
 				while(isUsed==true){
 					sleep(1);
 				}
@@ -194,6 +193,7 @@ int Gestionnaire::launch()
 					jobToPause->killProcess();
 				}
 			}
+			getCommandToLaunch();
 			printVector();
 		}
     }
@@ -228,9 +228,19 @@ int Gestionnaire::startServer(){
     if(childpid == 0)
     {
         while(1){
-			srv.receive();
-			Command cmd = Command(srv.getline());
-			add(&cmd);
+		srv.receive();
+      		ofstream fichier("/tmp/command.txt", ios::out | ios::app);
+        	if(fichier)  // si l'ouverture a réussi
+        	{
+				cout<<"Ecris: "<< srv.getline()<<endl;
+				fichier << srv.getline()<<endl;
+            	// instructions
+                fichier.close();  // on referme le fichier
+        	}
+        	else  // sinon
+			{
+                	cerr << "Erreur à l'ouverture !" << endl;
+			}
 		}
 
     }
@@ -239,4 +249,33 @@ int Gestionnaire::startServer(){
     {
 		return(0);
 	}
+}
+void Gestionnaire::getCommandToLaunch(){
+
+	ifstream fichier("/tmp/command.txt", ios::in);
+    if(fichier)
+	{
+        string ligne;
+        while(getline(fichier, ligne))  // tant que l'on peut mettre la ligne dans "contenu"
+        {
+                Command* command= new Command (ligne.c_str());
+				command->launch();
+				command->pause();
+				add(command);
+        }
+		fichier.close();
+	}
+
+	ofstream fichiers("/tmp/command.txt", ios::out| ios::trunc);  //déclaration du flux et ouverture du fichier
+	fichiers.close();
+}
+/**
+*\brief destructor
+*/
+Gestionnaire::~Gestionnaire(){
+	for (unsigned i=0; i<toExecute.size(); ++i)
+        delete (toExecute[i]);
+
+    for (unsigned i=0; i<running.size(); ++i)
+        delete(running[i]);
 }

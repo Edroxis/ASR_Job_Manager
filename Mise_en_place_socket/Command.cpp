@@ -11,9 +11,9 @@ Command::Command(const char * str){
 		//std::cout << "this is your string: " << cmd << std::endl;
 		//Get the arguments of the command
 		build_argv(str);
-		for(int j=0; argv[j] != 0; j++){
+		/*for(int j=0; argv[j] != 0; j++){
 			std::cout<< argv[j] << std::endl;
-		}
+		}*/
 	}
 /**
 *\brief get the argument of the command
@@ -70,4 +70,4 @@ int Command::calc_nb_elements(const char * str){
 int Command::run(){
 		execvp(argv[0], argv);
 		exit(1);
-	}
+}

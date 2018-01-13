@@ -9,5 +9,7 @@ This code purpose is to test sockets.
 # How to use
 
 > ./server
+
 Then in another terminal
+
 > ./client "string to send to server"

@@ -2,6 +2,8 @@
 
 /**
 *\brief consrtuctor
+*\params levelMin the level minimum
+*\params levelMax the level maximum
 */
 Gestionnaire::Gestionnaire(int levelMin, int levelMax)
 {
@@ -157,7 +159,7 @@ int Gestionnaire::launch()
 	        else if (res=="-mem")
 			{
 			    //Get the process to kill
-				if(running.size()!=0){
+				if(running.size()>0){
 
 					Job* jobToPause= strategie.strategieMemMax(running);
 					cout<<"========================================================================="<<endl;

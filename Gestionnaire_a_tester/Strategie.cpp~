@@ -17,7 +17,7 @@ Job* Strategie::strategieDefault(vector<Job*> running){
 Job* Strategie::strategieMemMax(vector<Job*> running){
 
 	string line;
-	Job* jobToPause;
+	Job* jobToPause=running[0];
 	int maxMem=0;	
 	//For each process launch
 	for (unsigned i=0; i<running.size(); ++i)

@@ -9,7 +9,7 @@
 
 int main( int argc, char* argv[] ){
     //Instanciate a new manager
-    Gestionnaire gestionnaire(10,20);
+    Gestionnaire gestionnaire(40,50);
     //Create a new command 
     //Command cmd1 = Command("./infinite_job.sh proc1");
 	//Command cmd2 = Command("./infinite_job.sh proc2");
@@ -22,8 +22,8 @@ int main( int argc, char* argv[] ){
 
 	JobTest* job1= new JobTest[100]();
 	for (int i=0; i<100; i++){
-			job1[i]=JobTest ("test"+i);
-			gestionnaire.add(&(job1[i]));
+		job1[i]=JobTest ("test"+i);
+		gestionnaire.add(&(job1[i]));
 	} //=JobTest ("test 1");
 	/*JobTest job2 =JobTest ("test 2");
 	JobTest job3 =JobTest ("test 3");

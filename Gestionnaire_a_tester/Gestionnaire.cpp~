@@ -3,8 +3,10 @@
 /**
 *\brief consrtuctor
 */
-Gestionnaire::Gestionnaire()
+Gestionnaire::Gestionnaire(int levelMin, int levelMax)
 {
+	min=levelMin;
+	max=levelMax;
 
 }
 
@@ -70,7 +72,7 @@ int Gestionnaire::launch()
     {
         // Close the input of the pipe for the child
         close(fd[0]);
-		Monitor monitor (15,20);
+		Monitor monitor (min,max);
 
 
 		while(1){
@@ -155,7 +157,7 @@ int Gestionnaire::launch()
 	        else if (res=="-mem")
 			{
 			    //Get the process to kill
-				if(running.size()!=0){
+				if(running.size()>0){
 
 					Job* jobToPause= strategie.strategieMemMax(running);
 					cout<<"========================================================================="<<endl;

@@ -4,7 +4,7 @@
 *\param running the list of the process 
 *\return the job to kill/pause/launch
 */
-Job* Strategie::strategieDefault(vector<Job*> running){
+Job* Strategie::strategieDefault(vector<Job*> &running){
 	//Return the first element of the list
 	return running[0];	
 }
@@ -14,10 +14,10 @@ Job* Strategie::strategieDefault(vector<Job*> running){
 *\param running the list of the process 
 *\return the job to kill
 */
-Job* Strategie::strategieMemMax(vector<Job*> running){
+Job* Strategie::strategieMemMax(vector<Job*> &running){
 
 	string line;
-	Job* jobToPause;
+	Job* jobToPause=running[0];
 	int maxMem=0;	
 	//For each process launch
 	for (unsigned i=0; i<running.size(); ++i)

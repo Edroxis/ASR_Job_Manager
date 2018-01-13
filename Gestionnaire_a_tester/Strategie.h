@@ -16,8 +16,8 @@ class Strategie {
 	public:
 
 		//Default strategie
-    	Job* strategieDefault(vector<Job*> running);
+    	Job* strategieDefault(vector<Job*> &running);
 		//Strategie to get the process which used the most memory
-		Job* strategieMemMax(vector<Job*> running);
+		Job* strategieMemMax(vector<Job*> &running);
 
 };

@@ -107,30 +107,41 @@ float Monitor::getMemCharge(void){
    return pourcentMem;
 }
 
+/**
+*\brief Get the action that the system has to do
+*/
 string Monitor::ActionSystem(){
     clock_t delay = clock();
     float cpuCharge= 0;
     float memCharge=0;
     while(1){
 
+	//Get busy CPU and memory charge
 	cpuCharge= 100-getCPUCharge();
-        memCharge=100-getMemCharge();
-	cout<<"charge: "<<cpuCharge<<endl;
-
+    memCharge=100-getMemCharge();
+	cout<<"charge cpu: "<<cpuCharge<<endl;
+	cout<<"charge mem: "<<cpuCharge<<endl;
+		
+		//The CPU charge is to high
         if(cpuCharge> levelMax){
             return "-cpu";
         }
+		//The mem charge is to high
  		else if(memCharge>levelMax){
 			return "-mem";
 		}
+		//It's possible to launch more process
         else if (cpuCharge<levelMin&&memCharge<levelMin){
+			//Get the time
             clock_t delay = clock();
             clock_t endDelay = clock();
+			//Check if the cpu and the mem charge is low for 5 min
             while((clock()-delay)<5 && cpuCharge<levelMin && memCharge<levelMin){
                 endDelay=clock();
                 cpuCharge= getCPUCharge();
                 memCharge=getMemCharge();
             }
+			//Check if the cpu and the mem charge is low for 5 min
             if(endDelay-delay >=5){
                 return "+";
             }

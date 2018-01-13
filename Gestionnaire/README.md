@@ -1,5 +1,5 @@
-# ASR_Job_Manager
+# How to compile the code 
 
-# How to compilate the code 
+* g++ *.cpp -o test -std=c++11
 
-* In the file where all the documents are execute the command : "g++ *.cpp -o test -std=c++11"
+To send commands to the program, see in send_commands sub-directory

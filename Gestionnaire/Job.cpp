@@ -3,12 +3,13 @@ using namespace std;
 
 /**
 *\brief constructor
-*\param processName the process name 
+*\param processName the process name
 */
 Job::Job(const char* processName): pid(0), name(processName)
 {
-    //pid=0;
-    //name= processName;
+	//pid=0;
+	//name= processName;
+	running=1;
 }
 
 /**
@@ -18,6 +19,7 @@ Job::Job(const char* processName): pid(0), name(processName)
 Job::Job(Job * job1){
 	pid= job1->getPid();
 	name= job1->getName();
+	running=1;
 }
 
 /**
@@ -25,8 +27,9 @@ Job::Job(Job * job1){
 */
 Job::Job()
 {
-    pid=0;
+	pid=0;
 	name="default";
+	running=1;
 }
 
 /**
@@ -38,8 +41,9 @@ int Job::launch(){
    pid = fork();
 
    if(pid == 0){
-		run();
+	run();
         exit(1);
+	running=0;
     }
 
     return 0;
@@ -86,6 +90,10 @@ int Job::getPid()
 int Job::killProcess(){
 	kill(pid, SIGKILL);
 	return 0;
+}
+
+int Job::isRunning(){
+	return running;
 }
 
 /**

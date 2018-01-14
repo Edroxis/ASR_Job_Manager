@@ -20,7 +20,8 @@ class Job{
     protected:
 	//Name of the job
 	string name;
-	
+	int running;
+
 	Job();
 
     public:
@@ -40,6 +41,8 @@ class Job{
 	int killProcess();
 	//Get the name of the job
 	string getName();
+	//Get running status
+	int isRunning();
 
 	virtual ~Job();
 

@@ -33,7 +33,7 @@ class Gestionnaire {
          Gestionnaire(int levelMin, int levelMax);
 	    //Add a job
         int add(Job* job);
-	    //Add a command 
+	    //Add a command
         int add(Command* command);
 	    //Launch the manager
         int launch();

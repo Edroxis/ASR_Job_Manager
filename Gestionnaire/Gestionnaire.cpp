@@ -1,7 +1,7 @@
 #include "Gestionnaire.h"
 #include <iostream>
 #include <fstream>
- 
+
 
 /**
 *\brief consrtuctor
@@ -69,9 +69,9 @@ int Gestionnaire::launch()
     int     fd[2], nbytes;
     pid_t   childpid;
     char    readbuffer[80];
-	
-	startServer();	
-	
+
+    startServer();
+
     pipe(fd);
 
 
@@ -136,13 +136,11 @@ int Gestionnaire::launch()
 
 				}
 				isUsed=false;
-				
             }
 
             //Add process in toExecute and remove it from running
             else if(res=="-cpu")
             {
-				
                 /*if(running.empty()==false)
                 {
                     cout<<"Enleve"<<endl;
